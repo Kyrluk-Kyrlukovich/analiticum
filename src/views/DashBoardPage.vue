@@ -93,6 +93,7 @@ const list: WritableComputedRef<DraggableCardsTypes[]> = computed({
 				</div>
 			</TransitionGroup>
 		</div>
+		<!--    Реализация через библиотеку-->
 		<!--		<draggable-->
 		<!--			v-model="list"-->
 		<!--			:="dragOptions"-->

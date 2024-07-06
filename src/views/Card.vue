@@ -21,8 +21,8 @@ function formatText(text: string, length: number) {
 <template>
 	<div class="cardContainer">
 		<div class="card">
-			<p class="city">{{ name }}</p>
-			<p class="weather max-w-full">{{ formatText(description, 200) }}</p>
+			<p class="name">{{ name }}</p>
+			<p class="description max-w-full">{{ formatText(description, 200) }}</p>
 		</div>
 	</div>
 </template>
@@ -52,14 +52,18 @@ function formatText(text: string, length: number) {
 	cursor: inherit;
 }
 
-.city {
+.name {
+	text-align: center;
+	width: 100%;
 	font-weight: 700;
 	font-size: 0.9em;
 	letter-spacing: 1.2px;
 	color: white;
 }
 
-.weather {
+.description {
+	text-align: center;
+	width: 100%;
 	font-weight: 500;
 	font-size: 0.7em;
 	letter-spacing: 1.2px;
