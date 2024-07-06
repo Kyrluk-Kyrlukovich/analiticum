@@ -9,13 +9,20 @@ defineProps({
 		type: String,
 	},
 });
+
+function formatText(text: string, length: number) {
+	if (text.length <= length) {
+		return text;
+	}
+	return text.substring(0, length) + "...";
+}
 </script>
 
 <template>
 	<div class="cardContainer">
 		<div class="card">
 			<p class="city">{{ name }}</p>
-			<p class="weather truncate ... max-w-full">{{ description }}</p>
+			<p class="weather max-w-full">{{ formatText(description, 200) }}</p>
 		</div>
 	</div>
 </template>
