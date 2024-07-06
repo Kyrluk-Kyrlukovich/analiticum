@@ -53,15 +53,17 @@ const list: WritableComputedRef<DraggableCardsTypes[]> = computed({
 
 <template>
 	<div class="h-full w-full">
-		<div class="actions py-4 flex gap-4 justify-end">
+		<div class="actions py-4 px-4 flex gap-4 justify-end">
 			<RouterLink to="add-card">
 				<button class="button w-full primary">Добавить каточку</button>
 			</RouterLink>
 			<div class="flex gap-2 border border-[#3d3a4e] p-3 rounded-[10px]">
 				<div>Режим редактирования</div>
-				<div class="check primary">
-					<input id="check" v-model="dragMode" type="checkbox" />
-					<label for="check"></label>
+				<div class="flex items-center">
+					<div class="check primary">
+						<input id="check" v-model="dragMode" type="checkbox" />
+						<label for="check"></label>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -176,10 +178,10 @@ const list: WritableComputedRef<DraggableCardsTypes[]> = computed({
 }
 
 .button {
-	height: 100%;
+	height: 51px;
 	position: relative;
 	overflow: hidden;
-	padding: 0 2rem;
+	padding: 0.5rem 2rem;
 	border-radius: 10px;
 	color: #fff;
 	border: none;
@@ -285,5 +287,11 @@ const list: WritableComputedRef<DraggableCardsTypes[]> = computed({
 	left: 2.6em;
 	font-size: 0.6em;
 	line-height: 0;
+}
+
+@media (max-width: 550px) {
+	.actions {
+		flex-direction: column;
+	}
 }
 </style>
