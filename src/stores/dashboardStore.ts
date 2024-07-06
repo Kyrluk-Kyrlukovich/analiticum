@@ -5,7 +5,7 @@ import type { DraggableCardsTypes } from "@/types/dashboardStoreTypes";
 
 export const useDashBoardStore = defineStore("dashBoardStore", () => {
 	const localStorage = window.localStorage;
-	const list: DraggableCardsTypes | null = JSON.parse(localStorage.getItem("list"));
+	const list: DraggableCardsTypes[] | null = JSON.parse(localStorage.getItem("list") ?? "");
 	const draggableCards: Ref<DraggableCardsTypes[]> = ref(
 		list ?? [
 			{
@@ -30,7 +30,7 @@ export const useDashBoardStore = defineStore("dashBoardStore", () => {
 	}
 
 	function addCard(newCard: DraggableCardsTypes) {
-		draggableCards.value.push(newCard);
+		draggableCards.value?.push(newCard);
 	}
 
 	return { draggableCards, dragCard, saveDraggableCars, addCard };

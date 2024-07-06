@@ -12,7 +12,7 @@ const props = defineProps({
 });
 
 const emits = defineEmits(["errorValidation"]);
-const input: ModelRef<string | null | undefined, string> = defineModel();
+const input: ModelRef<string | undefined, string> = defineModel();
 const inputErrors: Ref<string | null | undefined> = ref(null);
 
 const errors: ErrorsTypes = {
@@ -24,7 +24,7 @@ const errors: ErrorsTypes = {
 	},
 };
 
-watch(input, (newVal: string) => {
+watch(input, (newVal: string | undefined) => {
 	if (!newVal) {
 		inputErrors.value = errors.empty?.text;
 	} else if (!newVal.match(/^[А-Яа-яЁё0-9\s.,:;?!\-()@#$%^&*+=\[\]{}|\\<>`~"']+$/gm)) {

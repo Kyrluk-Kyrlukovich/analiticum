@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { markRaw } from "vue";
 
-import type { StateTypes } from "@/types/modalStoreTypes";
+import type { ActionType, StateTypes } from "@/types/modalStoreTypes";
 
 export const useModal = defineStore("modal", {
 	state: (): StateTypes => ({
@@ -11,7 +11,7 @@ export const useModal = defineStore("modal", {
 		header: "",
 	}),
 	actions: {
-		open(view: object, header: string, actions: [] | null) {
+		open(view: object, header: string, actions?: ActionType[]) {
 			this.isOpen = true;
 			this.actions = actions;
 			this.header = header;

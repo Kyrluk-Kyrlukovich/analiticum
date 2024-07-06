@@ -1,14 +1,15 @@
 <script lang="ts" setup>
-import { computed, h, ref } from "vue";
+import { computed, h, Ref, ref, WritableComputedRef } from "vue";
 
 import { useDashBoardStore } from "@/stores/dashboardStore";
 import { useModal } from "@/stores/modalStore";
+import { DraggableCardsTypes } from "@/types/dashboardStoreTypes";
 import Card from "@/views/Card.vue";
 
 const dashboardStore = useDashBoardStore();
 const modal = useModal();
 
-let dragItems = ref(dashboardStore.draggableCards);
+let dragItems: Ref<DraggableCardsTypes[]> = ref(dashboardStore.draggableCards);
 
 const dragMode = ref(false);
 const dragOptions = computed(() => {
@@ -20,24 +21,26 @@ const dragOptions = computed(() => {
 const dragElem = ref();
 const dragHtmlElem = ref();
 
-function drag(e) {
-	const elem = e.target?.closest("div.draggable");
+function drag(e: Event) {
+	const elem = e.target as HTMLElement;
+	const closest = elem.closest("div.draggable") as Element;
 	elem.classList.add("dragging");
-	dragElem.value = { ...list.value[elem.getAttribute("data-index")] };
-	dragHtmlElem.value = elem;
+	dragElem.value = { ...list.value[Number(closest.getAttribute("data-index"))] };
+	dragHtmlElem.value = closest;
 }
 
-function drop(e, idx) {
-	const elem = e.target.closest("div.draggable");
-	const dropElem = { ...list.value[elem.getAttribute("data-index")] };
+function drop(e: Event, idx: number) {
+	const elem = e.target as HTMLElement;
+	const closest = elem.closest("div.draggable") as Element;
+	const dropElem = { ...list.value[Number(closest.getAttribute("data-index"))] };
 
 	list.value[idx] = dragElem.value;
 	list.value[dragHtmlElem.value.getAttribute("data-index")] = dropElem;
-	dashboardStore.dragCard(list.value);
+	dashboardStore.dragCard(list.value as DraggableCardsTypes[]);
 	dashboardStore.saveDraggableCars();
 }
 
-const list = computed({
+const list: WritableComputedRef<DraggableCardsTypes[]> = computed({
 	get() {
 		return dragItems.value;
 	},
