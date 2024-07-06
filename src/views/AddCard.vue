@@ -48,10 +48,6 @@ const description = ref("");
 </template>
 
 <style scoped>
-textarea {
-	resize: none;
-}
-
 .form {
 	display: flex;
 	flex-direction: column;

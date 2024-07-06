@@ -61,6 +61,10 @@ watch(input, (newVal: string | undefined) => {
 </template>
 
 <style scoped>
+textarea {
+	resize: none;
+}
+
 .form label {
 	position: relative;
 	display: block;
