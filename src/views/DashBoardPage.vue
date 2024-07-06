@@ -86,7 +86,9 @@ const list: WritableComputedRef<DraggableCardsTypes[]> = computed({
 						draggable="false"
 						@click="
 							() => {
-								modal.open(h('div', elem.description), 'Детальная информация');
+								if (dragOptions.disabled) {
+									modal.open(h('div', elem.description), 'Детальная информация');
+								}
 							}
 						"
 					></card>
