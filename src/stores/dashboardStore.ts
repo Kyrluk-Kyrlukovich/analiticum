@@ -1,37 +1,42 @@
 import { defineStore } from "pinia";
-import { Ref, ref } from "vue";
 
-import type { DraggableCardsTypes } from "@/types/dashboardStoreTypes";
+import { DraggableCardsTypes } from "@/types/dashboardStoreTypes";
 
-export const useDashBoardStore = defineStore("dashBoardStore", () => {
-	const localStorage = window.localStorage;
-	const list: DraggableCardsTypes[] | null = JSON.parse(String(localStorage.getItem("list")));
-	const draggableCards: Ref<DraggableCardsTypes[]> = ref(
-		list ?? [
-			{
-				id: Math.random(),
-				name: "Карточка 1",
-				description: "Описание карточки под номером 1",
-			},
-			{
-				id: Math.random(),
-				name: "Карточка 2",
-				description: "Описание карточки под номером 2",
-			},
-		],
-	);
+interface DashBoardState {
+	draggableCards: DraggableCardsTypes[];
+}
 
-	function dragCard(value: DraggableCardsTypes[]) {
-		draggableCards.value = value;
-	}
+export const useDashBoardStore = defineStore("dashBoardStore", {
+	state: (): DashBoardState => {
+		return {
+			draggableCards: (JSON.parse(String(localStorage.getItem("list"))) as
+				| DraggableCardsTypes[]
+				| null) ?? [
+				{
+					id: Math.random(),
+					name: "Карточка 1",
+					description: "Описание карточки под номером 1",
+				},
+				{
+					id: Math.random(),
+					name: "Карточка 2",
+					description: "Описание карточки под номером 2",
+				},
+			],
+		};
+	},
 
-	function saveDraggableCars() {
-		localStorage.setItem("list", JSON.stringify(draggableCards.value));
-	}
+	actions: {
+		dragCard(value: DraggableCardsTypes[]) {
+			this.draggableCards = value;
+		},
 
-	function addCard(newCard: DraggableCardsTypes) {
-		draggableCards.value?.push(newCard);
-	}
+		saveDraggableCars() {
+			localStorage.setItem("list", JSON.stringify(this.draggableCards));
+		},
 
-	return { draggableCards, dragCard, saveDraggableCars, addCard };
+		addCard(newCard: DraggableCardsTypes) {
+			this.draggableCards.push(newCard);
+		},
+	},
 });
